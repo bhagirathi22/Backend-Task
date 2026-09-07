@@ -1,0 +1,29 @@
+CREATE DATABASE IF NOT EXISTS student_results;
+USE student_results;
+
+CREATE TABLE IF NOT EXISTS students (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  roll_number VARCHAR(30) NOT NULL UNIQUE,
+  name VARCHAR(120) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS subjects (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(80) NOT NULL UNIQUE,
+  max_marks DECIMAL(5, 2) NOT NULL DEFAULT 100,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT subjects_max_marks_check CHECK (max_marks > 0)
+);
+
+CREATE TABLE IF NOT EXISTS marks (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  student_id INT UNSIGNED NOT NULL,
+  subject_id INT UNSIGNED NOT NULL,
+  marks DECIMAL(5, 2) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY student_subject_unique (student_id, subject_id),
+  CONSTRAINT marks_value_check CHECK (marks >= 0 AND marks <= 100),
+  CONSTRAINT marks_student_fk FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+  CONSTRAINT marks_subject_fk FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE RESTRICT
+);

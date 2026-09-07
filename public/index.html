@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Markline | Student Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Markline home">
+        <span class="brand-mark">M</span>
+        <span>markline</span>
+      </a>
+      <div class="connection-status" id="connectionStatus"><span class="status-dot"></span> Checking database</div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">Academic record console <span>01 / 24</span></p>
+        <div class="intro-row">
+          <div>
+            <h1>See the whole<br><em>picture.</em></h1>
+            <p class="intro-copy">A clear view of student performance, built directly from your MySQL records.</p>
+          </div>
+          <div class="intro-note"><span class="note-line"></span><p>Choose a student to inspect their complete result, or scan the class at a glance.</p></div>
+        </div>
+      </section>
+
+      <section class="summary-section" aria-labelledby="summary-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">Class overview</p><h2 id="summary-title">At a glance</h2></div>
+          <button class="text-button" id="refreshButton" type="button"><span class="refresh-icon">↻</span> Refresh data</button>
+        </div>
+        <div class="summary-grid" id="summaryGrid">
+          <div class="metric-card loading-card"></div><div class="metric-card loading-card"></div><div class="metric-card loading-card"></div><div class="metric-card loading-card"></div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-labelledby="result-title">
+        <div class="selector-panel">
+          <div class="panel-label">Student record</div>
+          <label for="studentSelect">Select a student</label>
+          <select id="studentSelect" disabled><option>Loading students...</option></select>
+          <p class="helper-text">Results include subject marks, grade, pass status, and range.</p>
+          <div class="selected-student" id="selectedStudent">No student selected</div>
+        </div>
+        <div class="result-panel">
+          <div class="section-heading result-heading">
+            <div><p class="eyebrow">Detailed report</p><h2 id="result-title">Student result</h2></div>
+            <span class="grade-badge" id="gradeBadge">--</span>
+          </div>
+          <div id="resultContent" class="result-content empty-state"><div class="empty-icon">↗</div><p>Select a student to load their result.</p></div>
+        </div>
+      </section>
+
+      <div class="error-banner" id="errorBanner" role="alert" hidden></div>
+    </main>
+    <footer><span>MARKLINE / RESULT SYSTEM</span><span>Live MySQL data</span></footer>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
